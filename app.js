@@ -24,8 +24,23 @@ class SenaWaitlistApp {
     // Listen to changes in radio buttons to auto-advance
     this.setupRadioListeners();
 
+    // Setup dynamic character counter for goals/reason field
+    this.setupCharCounter();
+
     // Initial state rendering
     this.updateUI();
+  }
+
+  // Hook up character counter update handler
+  setupCharCounter() {
+    const textarea = document.getElementById('reason');
+    const counter = document.getElementById('charCounter');
+    if (textarea && counter) {
+      textarea.addEventListener('input', () => {
+        const count = textarea.value.length;
+        counter.textContent = `${count} / 280 characters`;
+      });
+    }
   }
 
   // Set up listeners for radio cards to automatically advance with a slight visual delay
@@ -133,16 +148,47 @@ class SenaWaitlistApp {
     textInputs.forEach(input => {
       // Clear previous validation styles if any
       input.style.borderBottomColor = '';
+      const trimmedValue = input.value.trim();
 
-      if (!input.value.trim()) {
+      // Empty field validation
+      if (!trimmedValue) {
         isValid = false;
         this.shakeInput(input);
+        return;
       }
 
-      // Email format verification
-      if (input.type === 'email' && input.value.trim()) {
+      // Enforce Full Name checks (Step 1)
+      if (input.id === 'fullName') {
+        const nameWords = trimmedValue.split(/\s+/);
+        const nameRegex = /^[\p{L}\s'-]{3,60}$/u; // Unicode letters, spaces, hyphens, min 3 chars
+        
+        if (nameWords.length < 2 || !nameRegex.test(trimmedValue)) {
+          isValid = false;
+          this.shakeInput(input);
+        }
+      }
+
+      // Email format verification (Step 2)
+      if (input.type === 'email') {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(input.value.trim())) {
+        if (!emailRegex.test(trimmedValue)) {
+          isValid = false;
+          this.shakeInput(input);
+        }
+      }
+
+      // WhatsApp format verification (Step 3)
+      if (input.id === 'whatsapp') {
+        const phoneRegex = /^\+?[0-9\s\-()]{7,18}$/;
+        if (!phoneRegex.test(trimmedValue)) {
+          isValid = false;
+          this.shakeInput(input);
+        }
+      }
+
+      // Character count goals verification (Step 6)
+      if (input.id === 'reason') {
+        if (trimmedValue.length > 280) {
           isValid = false;
           this.shakeInput(input);
         }

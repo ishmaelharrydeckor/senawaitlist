@@ -234,6 +234,14 @@ body {
   border-bottom-color: var(--border-active);
 }
 
+.char-counter {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-align: right;
+  margin-top: 8px;
+  user-select: none;
+}
+
 /* Interactive Card Option Grid for Multiple Choice */
 .options-grid {
   display: grid;

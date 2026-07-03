@@ -219,7 +219,8 @@
             </label>
             <p class="question-sub-label">Write a short paragraph about your goals.</p>
             <div class="input-wrapper">
-              <textarea id="reason" name="reason" placeholder="Type your answer here..." rows="4" required></textarea>
+              <textarea id="reason" name="reason" placeholder="Type your answer here..." rows="4" maxlength="280" required></textarea>
+              <div class="char-counter" id="charCounter">0 / 280 characters</div>
             </div>
             <div class="step-actions">
               <button type="button" class="btn-primary" onclick="app.nextStep()">
