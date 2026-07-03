@@ -234,7 +234,21 @@ class SenaWaitlistApp {
 
     console.log('Sena Academy Waitlist Submission Successful:', data);
 
-    // Save in LocalStorage to simulate full integration
+    // Post to Google Sheets Web App
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbx3_pkZys2dBwTHK6ReO8IfbffDJTn8A6qhOLOtmnCQ346yu4LxlQsni6MI8mmwIMGGpA/exec';
+    
+    fetch(scriptUrl, {
+      method: 'POST',
+      mode: 'no-cors', // standard workaround for Google Web App CORS restrictions
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(() => console.log('Successfully saved to Google Sheets'))
+    .catch(error => console.error('Error posting to Google Sheets:', error));
+
+    // Save in LocalStorage as local backup
     let list = JSON.parse(localStorage.getItem('sena_waitlist') || '[]');
     list.push(data);
     localStorage.setItem('sena_waitlist', JSON.stringify(list));
