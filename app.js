@@ -179,8 +179,9 @@ class SenaWaitlistApp {
 
       // WhatsApp format verification (Step 3)
       if (input.id === 'whatsapp') {
-        const phoneRegex = /^\+?[0-9\s\-()]{7,18}$/;
-        if (!phoneRegex.test(trimmedValue)) {
+        const cleanPhone = trimmedValue.replace(/[\s\-()]/g, '');
+        const phoneRegex = /^\+?[1-9]\d{6,14}$/;
+        if (!phoneRegex.test(cleanPhone)) {
           isValid = false;
           this.shakeInput(input);
         }
