@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sena Academy — Build Software with AI</title>
+  <meta name="description" content="Join the founding cohort of Sena Academy and learn how to build Android apps, websites, and UI/UX designs using modern AI tools. No prior experience required.">
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts: Plus Jakarta Sans for premium typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top elegant progress indicator -->
+  <div class="progress-container" id="progressContainer">
+    <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+  </div>
+
+  <div class="app-layout">
+    <!-- Clean minimal Header -->
+    <header class="header">
+      <div class="logo">Sena Academy</div>
+    </header>
+
+    <!-- Main Dynamic Form Wrapper -->
+    <main class="form-wrapper">
+      <form id="waitlistForm" onsubmit="event.preventDefault();">
+        
+        <!-- STEP 0: Welcome / Intro -->
+        <section class="step-section active" data-step="0" id="step-0">
+          <div class="step-content intro-content">
+            <h1 class="hero-title">Build Software with AI.</h1>
+            <p class="hero-subtitle">Join the founding cohort of Sena Academy and learn how to build Android apps, websites, and UI/UX designs using modern AI tools.</p>
+            <p class="hero-hint">No prior experience required.</p>
+            
+            <div class="supporting-text-box">
+              <p>Technology is changing.</p>
+              <p>The people who learn how to build with AI today will have an unfair advantage tomorrow.</p>
+              <p>Sena Academy exists to help beginners become builders.</p>
+              <p>Whether you want to freelance, launch a startup, or simply gain valuable digital skills, we'll teach you practical workflows you can apply immediately.</p>
+            </div>
+
+            <button type="button" class="btn-primary" onclick="app.nextStep()">
+              <span>Join Waitlist</span>
+              <kbd class="shortcut-kbd">Enter ↵</kbd>
+            </button>
+          </div>
+        </section>
+
+        <!-- STEP 1: Full Name -->
+        <section class="step-section" data-step="1" id="step-1">
+          <div class="step-content">
+            <label class="question-label" for="fullName">
+              <span class="step-num">01.</span> What is your full name?
+            </label>
+            <div class="input-wrapper">
+              <input type="text" id="fullName" name="fullName" placeholder="Type your name here..." required autocomplete="name">
+            </div>
+            <div class="step-actions">
+              <button type="button" class="btn-primary" onclick="app.nextStep()">
+                <span>OK</span>
+                <kbd class="shortcut-kbd">Enter ↵</kbd>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 2: Email Address -->
+        <section class="step-section" data-step="2" id="step-2">
+          <div class="step-content">
+            <label class="question-label" for="email">
+              <span class="step-num">02.</span> What is your email address?
+            </label>
+            <div class="input-wrapper">
+              <input type="email" id="email" name="email" placeholder="name@example.com" required autocomplete="email">
+            </div>
+            <div class="step-actions">
+              <button type="button" class="btn-primary" onclick="app.nextStep()">
+                <span>OK</span>
+                <kbd class="shortcut-kbd">Enter ↵</kbd>
+              </button>
+              <button type="button" class="btn-back" onclick="app.prevStep()">Back</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 3: WhatsApp Number -->
+        <section class="step-section" data-step="3" id="step-3">
+          <div class="step-content">
+            <label class="question-label" for="whatsapp">
+              <span class="step-num">03.</span> What is your WhatsApp number?
+            </label>
+            <div class="input-wrapper">
+              <input type="tel" id="whatsapp" name="whatsapp" placeholder="e.g., +1 234 567 890" required autocomplete="tel">
+            </div>
+            <div class="step-actions">
+              <button type="button" class="btn-primary" onclick="app.nextStep()">
+                <span>OK</span>
+                <kbd class="shortcut-kbd">Enter ↵</kbd>
+              </button>
+              <button type="button" class="btn-back" onclick="app.prevStep()">Back</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 4: Current Occupation -->
+        <section class="step-section" data-step="4" id="step-4">
+          <div class="step-content">
+            <span class="question-label">
+              <span class="step-num">04.</span> What is your current occupation?
+            </span>
+            <div class="options-grid">
+              <label class="option-card">
+                <input type="radio" name="occupation" value="Student" required>
+                <div class="option-card-inner">
+                  <span class="key-badge">A</span>
+                  <span class="option-text">Student</span>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="occupation" value="Graduate">
+                <div class="option-card-inner">
+                  <span class="key-badge">B</span>
+                  <span class="option-text">Graduate</span>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="occupation" value="Working Professional">
+                <div class="option-card-inner">
+                  <span class="key-badge">C</span>
+                  <span class="option-text">Working Professional</span>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="occupation" value="Entrepreneur">
+                <div class="option-card-inner">
+                  <span class="key-badge">D</span>
+                  <span class="option-text">Entrepreneur</span>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="occupation" value="Other">
+                <div class="option-card-inner">
+                  <span class="key-badge">E</span>
+                  <span class="option-text">Other</span>
+                </div>
+              </label>
+            </div>
+            <div class="step-actions">
+              <button type="button" class="btn-primary" onclick="app.nextStep()">
+                <span>OK</span>
+                <kbd class="shortcut-kbd">Enter ↵</kbd>
+              </button>
+              <button type="button" class="btn-back" onclick="app.prevStep()">Back</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 5: Which skill interests you the most? -->
+        <section class="step-section" data-step="5" id="step-5">
+          <div class="step-content">
+            <span class="question-label">
+              <span class="step-num">05.</span> Which skill interests you the most?
+            </span>
+            <div class="options-grid">
+              <label class="option-card">
+                <input type="radio" name="primarySkill" value="Android App Development" required>
+                <div class="option-card-inner">
+                  <span class="key-badge">A</span>
+                  <span class="option-text">Android App Development</span>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="primarySkill" value="Website Development">
+                <div class="option-card-inner">
+                  <span class="key-badge">B</span>
+                  <span class="option-text">Website Development</span>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="primarySkill" value="UI/UX Design">
+                <div class="option-card-inner">
+                  <span class="key-badge">C</span>
+                  <span class="option-text">UI/UX Design</span>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="primarySkill" value="AI Productivity">
+                <div class="option-card-inner">
+                  <span class="key-badge">D</span>
+                  <span class="option-text">AI Productivity</span>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="primarySkill" value="All of the above">
+                <div class="option-card-inner">
+                  <span class="key-badge">E</span>
+                  <span class="option-text">All of the above</span>
+                </div>
+              </label>
+            </div>
+            <div class="step-actions">
+              <button type="button" class="btn-primary" onclick="app.nextStep()">
+                <span>OK</span>
+                <kbd class="shortcut-kbd">Enter ↵</kbd>
+              </button>
+              <button type="button" class="btn-back" onclick="app.prevStep()">Back</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 6: Why do you want to join Sena Academy? -->
+        <section class="step-section" data-step="6" id="step-6">
+          <div class="step-content">
+            <label class="question-label" for="reason">
+              <span class="step-num">06.</span> Why do you want to join Sena Academy?
+            </label>
+            <p class="question-sub-label">Write a short paragraph about your goals.</p>
+            <div class="input-wrapper">
+              <textarea id="reason" name="reason" placeholder="Type your answer here..." rows="4" required></textarea>
+            </div>
+            <div class="step-actions">
+              <button type="button" class="btn-primary" onclick="app.nextStep()">
+                <span>OK</span>
+                <kbd class="shortcut-kbd">Enter ↵</kbd>
+              </button>
+              <button type="button" class="btn-back" onclick="app.prevStep()">Back</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 7: How did you hear about us? -->
+        <section class="step-section" data-step="7" id="step-7">
+          <div class="step-content">
+            <span class="question-label">
+              <span class="step-num">07.</span> How did you hear about us?
+            </span>
+            <div class="options-grid">
+              <label class="option-card">
+                <input type="radio" name="referral" value="Instagram" required>
+                <div class="option-card-inner">
+                  <span class="key-badge">A</span>
+                  <span class="option-text">Instagram</span>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="referral" value="WhatsApp">
+                <div class="option-card-inner">
+                  <span class="key-badge">B</span>
+                  <span class="option-text">WhatsApp</span>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="referral" value="X (Twitter)">
+                <div class="option-card-inner">
+                  <span class="key-badge">C</span>
+                  <span class="option-text">X (Twitter)</span>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="referral" value="LinkedIn">
+                <div class="option-card-inner">
+                  <span class="key-badge">D</span>
+                  <span class="option-text">LinkedIn</span>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="referral" value="Friend">
+                <div class="option-card-inner">
+                  <span class="key-badge">E</span>
+                  <span class="option-text">Friend</span>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="referral" value="Other">
+                <div class="option-card-inner">
+                  <span class="key-badge">F</span>
+                  <span class="option-text">Other</span>
+                </div>
+              </label>
+            </div>
+            <div class="step-actions">
+              <button type="submit" class="btn-primary">
+                <span>Submit</span>
+                <kbd class="shortcut-kbd">Enter ↵</kbd>
+              </button>
+              <button type="button" class="btn-back" onclick="app.prevStep()">Back</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 8: Success screen -->
+        <section class="step-section" data-step="8" id="step-8">
+          <div class="step-content success-content">
+            <div class="success-badge">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 6L9 17L4 12" stroke="#09090b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h1 class="hero-title">You're on the waitlist.</h1>
+            <p class="hero-subtitle">Thank you for joining the founding cohort.</p>
+            <div class="supporting-text-box">
+              <p>We'll be sharing updates, launch dates, and exclusive early access soon.</p>
+              <p>We're excited to build with you.</p>
+            </div>
+          </div>
+        </section>
+
+      </form>
+    </main>
+
+    <!-- Bottom brand/footer indicator -->
+    <footer class="footer">
+      <div class="footer-navigation">
+        <button type="button" class="nav-arrow" id="navPrev" aria-label="Previous step" onclick="app.prevStep()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button type="button" class="nav-arrow" id="navNext" aria-label="Next step" onclick="app.nextStep()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="footer-brand">
+        <span>Powered by Sena Academy OS</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
