@@ -32,8 +32,9 @@ body {
   background-color: var(--bg-color);
   color: var(--text-primary);
   font-family: var(--font-family);
-  overflow: hidden;
-  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 100dvh;
   width: 100vw;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -61,13 +62,20 @@ body {
 .app-layout {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
   position: relative;
+  /* Safe Area Support */
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
 }
 
 /* Minimalist Header */
 .header {
   padding: 40px 60px;
+  padding-top: max(40px, env(safe-area-inset-top, 40px));
   display: flex;
   align-items: center;
   z-index: 100;
@@ -92,13 +100,12 @@ body {
   max-width: 800px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 40px;
 }
 
 #waitlistForm {
   position: relative;
   width: 100%;
-  height: 500px;
   display: flex;
   align-items: center;
 }
@@ -117,12 +124,14 @@ body {
 }
 
 .step-section.active {
+  position: relative; /* Takes up layout height space dynamically, preventing cuts */
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
 }
 
 .step-section.exit {
+  position: absolute;
   opacity: 0;
   pointer-events: none;
   transform: translateY(-40px);
@@ -142,7 +151,7 @@ body {
 }
 
 .hero-title {
-  font-size: 3.5rem;
+  font-size: clamp(2.25rem, 6vw, 3.5rem);
   font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 1.1;
@@ -150,7 +159,7 @@ body {
 }
 
 .hero-subtitle {
-  font-size: 1.25rem;
+  font-size: clamp(1.05rem, 3.5vw, 1.25rem);
   line-height: 1.6;
   color: var(--text-secondary);
   font-weight: 400;
@@ -181,7 +190,7 @@ body {
 
 /* Questions and Inputs styling */
 .question-label {
-  font-size: 1.85rem;
+  font-size: clamp(1.35rem, 5vw, 1.85rem);
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--text-primary);
@@ -215,7 +224,7 @@ body {
   border: none;
   border-bottom: 2px solid var(--border-color);
   padding: 12px 0;
-  font-size: 1.75rem;
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
   font-family: var(--font-family);
   font-weight: 400;
   color: var(--text-primary);
@@ -273,6 +282,7 @@ body {
   font-weight: 500;
   font-size: 1rem;
   transition: var(--transition-fast);
+  min-height: 56px; /* Ensuring minimum touch target heights */
 }
 
 .key-badge {
@@ -319,6 +329,7 @@ body {
 .btn-primary {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
   background-color: var(--text-primary);
   color: var(--bg-color);
@@ -331,6 +342,7 @@ body {
   transition: var(--transition-fast);
   outline: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  min-height: 48px; /* Accessible Touch Target */
 }
 
 .btn-primary:hover {
@@ -361,6 +373,9 @@ body {
   cursor: pointer;
   padding: 12px 16px;
   transition: var(--transition-fast);
+  min-height: 48px; /* Accessible Touch Target */
+  display: inline-flex;
+  align-items: center;
 }
 
 .btn-back:hover {
@@ -399,6 +414,7 @@ body {
 /* Footer & Navigation Controls */
 .footer {
   padding: 40px 60px;
+  padding-bottom: max(40px, env(safe-area-inset-bottom, 40px));
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -415,8 +431,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 44px; /* Enhanced touch target size */
+  height: 44px;
   border-radius: 6px;
   border: 1.5px solid var(--border-color);
   background-color: var(--bg-color);
@@ -443,31 +459,104 @@ body {
   text-transform: uppercase;
 }
 
-/* Responsive Overrides */
+/* --- Breakpoint Media Queries --- */
+
+/* Tablet Optimization */
 @media (max-width: 768px) {
-  .header, .footer {
+  .header {
+    padding: 24px 32px;
+  }
+  
+  .footer {
     padding: 24px 32px;
   }
   
   .form-wrapper {
-    padding: 0 32px;
+    padding: 32px;
+  }
+  
+  .shortcut-kbd,
+  .key-badge {
+    display: none !important; /* Hide keyboard helpers on touch viewports */
+  }
+}
+
+/* Mobile Portrait & Small Screens (e.g. 480px, 390px, 375px, 320px) */
+@media (max-width: 480px) {
+  .header {
+    padding: 16px 20px;
+    padding-top: max(16px, env(safe-area-inset-top, 16px));
+  }
+  
+  .footer {
+    padding: 16px 20px;
+    padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .form-wrapper {
+    padding: 20px;
+  }
+  
+  .step-content {
+    gap: 20px;
+  }
+  
+  /* Center Intro content visually on smaller screens */
+  .intro-content {
+    text-align: center;
+  }
+  
+  .supporting-text-box {
+    border-left: none;
+    border-top: 1px solid var(--border-color);
+    padding-left: 0;
+    padding-top: 16px;
+    margin: 8px 0;
+    gap: 8px;
+  }
+  
+  .step-actions {
+    justify-content: center;
+  }
+  
+  .btn-primary {
+    width: 100%;
+  }
+
+  .options-grid {
+    grid-template-columns: 1fr; /* Stack option cards natively */
+    gap: 8px;
+  }
+  
+  .option-card-inner {
+    padding: 14px 16px;
+  }
+}
+
+/* Short height adjustment (e.g. phones with landscape mode or virtual keyboard open) */
+@media (max-height: 600px) {
+  .header {
+    padding: 12px 20px;
+  }
+  
+  .footer {
+    padding: 12px 20px;
+  }
+  
+  .form-wrapper {
+    padding: 16px 20px;
   }
   
   .hero-title {
-    font-size: 2.5rem;
+    font-size: 1.85rem;
   }
   
-  .question-label {
-    font-size: 1.5rem;
-  }
-  
-  .input-wrapper input[type="text"],
-  .input-wrapper input[type="email"],
-  .input-wrapper input[type="tel"] {
-    font-size: 1.35rem;
-  }
-  
-  .options-grid {
-    grid-template-columns: 1fr;
+  .supporting-text-box {
+    margin: 8px 0;
+    padding-top: 8px;
   }
 }

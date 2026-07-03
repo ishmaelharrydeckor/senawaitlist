@@ -250,12 +250,19 @@ class SenaWaitlistApp {
       btnNext.disabled = (this.currentStep === 8);
     }
 
-    // 3. Auto-focus on text/email inputs in the active section
+    // 3. Auto-focus and scroll on text/email inputs in the active section
     const activeSection = document.getElementById(`step-${this.currentStep}`);
     if (activeSection) {
       const textInput = activeSection.querySelector('input[type="text"], input[type="email"], input[type="tel"], textarea');
       if (textInput) {
-        setTimeout(() => textInput.focus(), 300);
+        setTimeout(() => {
+          textInput.focus();
+          textInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 300);
+      } else {
+        setTimeout(() => {
+          activeSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 300);
       }
     }
   }
