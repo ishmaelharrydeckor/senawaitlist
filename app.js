@@ -321,9 +321,15 @@ class SenaWaitlistApp {
   }
 }
 
-// Instantiate on load
+// Safe Initialization
 let app;
-window.addEventListener('DOMContentLoaded', () => {
+function initApp() {
   app = new SenaWaitlistApp();
   window.app = app;
-});
+}
+
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
