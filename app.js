@@ -318,6 +318,83 @@ class SenaWaitlistApp {
     successEl.classList.add('active');
 
     this.updateUI();
+    this.launchConfetti();
+  }
+
+  // Lightweight, secure, offline native canvas particle confetti simulator
+  launchConfetti() {
+    const canvas = document.createElement('canvas');
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    canvas.style.pointerEvents = 'none';
+    canvas.style.zIndex = '9999';
+    document.body.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    // Custom branded colors: green accent gradients, blues and golds
+    const colors = ['#10b981', '#34d399', '#059669', '#3b82f6', '#60a5fa', '#fbbf24', '#f59e0b'];
+    const particles = [];
+
+    for (let i = 0; i < 75; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height - height,
+        r: Math.random() * 5 + 3,
+        d: Math.random() * height,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        tilt: Math.random() * 8 - 4,
+        tiltAngleIncremental: Math.random() * 0.05 + 0.02,
+        tiltAngle: 0
+      });
+    }
+
+    let animationFrameId;
+    const startTime = Date.now();
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+
+      let active = false;
+      particles.forEach((p) => {
+        p.tiltAngle += p.tiltAngleIncremental;
+        p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+        p.x += Math.sin(p.tiltAngle);
+        p.tilt = Math.sin(p.tiltAngle - p.r / 2) * 4;
+
+        if (p.y <= height) {
+          active = true;
+        }
+
+        ctx.beginPath();
+        ctx.lineWidth = p.r;
+        ctx.strokeStyle = p.color;
+        ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+        ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+        ctx.stroke();
+      });
+
+      if (active && Date.now() - startTime < 4000) {
+        animationFrameId = requestAnimationFrame(draw);
+      } else {
+        cancelAnimationFrame(animationFrameId);
+        if (canvas.parentNode) {
+          canvas.parentNode.removeChild(canvas);
+        }
+      }
+    }
+
+    draw();
   }
 }
 
