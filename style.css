@@ -204,6 +204,15 @@ body {
   margin-top: -24px;
 }
 
+.question-helper-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-top: 8px;
+  margin-bottom: 24px;
+  max-width: 600px;
+}
+
 .step-num {
   font-weight: 400;
   color: var(--text-tertiary);
